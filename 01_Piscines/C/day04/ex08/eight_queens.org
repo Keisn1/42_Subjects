@@ -1,0 +1,61 @@
+#+title: Eight Queens
+
+
+
+#+begin_src C :includes <stdio.h>
+int check_row(int col, int* queens) {
+    for (int i = 0; i < col; i++) {
+        if (queens[i] == queens[col]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    int queens[8] = {0, 4, 7, 3, 0, 0, 0, 0};
+    int col=3;
+    printf("%d\n", check_row(col, queens));
+    return 0;
+}
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src C :includes <stdio.h>
+int check_diag(int col, int* queens) {
+    int row = queens[col];
+    int help_row = row - 1;
+    int help_col = col - 1;
+    while (help_col >= 0 && help_row >= 0) {
+        if (queens[help_col] == help_row) {
+            return 0;
+        }
+        help_col--;
+        help_row--;
+    }
+
+    help_row = row + 1;
+    help_col = col - 1;
+    while (help_col >= 0 && help_row < 8) {
+        if (queens[help_col] == help_row) {
+            return 0;
+        }
+        help_col--;
+        help_row++;
+    }
+    return 1;
+}
+
+int main() {
+    int queens[8] = {7, 0, 0, 0, 0, 0, 0, 0};
+    int col=7;
+    printf("%d\n", check_diag(col, queens));
+    return 0;
+}
+
+#+end_src
+
+#+RESULTS:
+: 0
